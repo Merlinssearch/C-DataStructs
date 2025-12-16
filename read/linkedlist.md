@@ -4,6 +4,7 @@ Linked List - Key Points for C Implementation
 
 * `Node`: contains `data` and pointer to `next` node.
 * `LinkedList`: contains `head`, `tail`, and optionally `size`.
+* Avoid ambiguous pointers like `current` inside the list structure.
 
 2. **Memory Management**
 
@@ -13,6 +14,7 @@ Linked List - Key Points for C Implementation
 
 3. **Basic Operations**
 
+* Create a Node : `ll_create_node()`
 * Creation: `ll_create()`
 * Destruction: `ll_free()`
 * Insert at head: `ll_push_front()`
