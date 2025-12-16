@@ -12,7 +12,7 @@ This project is a personal learning repository to explore **data structures in C
 - Learn best practices in C programming, memory management, and library design.
 
 ## Folder Structure
-´´´bash
+```bash
 ├── examples
 │   ├── example_stack.c
 │   └── example_tree.c
@@ -41,5 +41,5 @@ This project is a personal learning repository to explore **data structures in C
 └── tests
     ├── test_stack.c
     └── test_tree.c
-´´´
+```
 
