@@ -17,15 +17,11 @@ C Naming & Header Conventions
   bool ll_push(LinkedList *list, void *data);
   void ll_free(LinkedList *list, void (*destroy)(void *));
 
-3. Struct Members / Variables
+3.  Variables
 -----------------------------
-- Use lower_snake_case
+- Use lowerCamelCase
 - Examples:
-  struct LinkedList {
-      Node *head;
-      Node *tail;
-      size_t size;
-  };
+  int numberToCalculate = 0 ; 
 
 4. Header Files (.h)
 --------------------
