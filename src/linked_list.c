@@ -17,7 +17,7 @@ typedef struct LinkedList {
 } LinkedList;
 
 // Always Check if this return NULL;
-LinkedList *ll_creat() {
+LinkedList *ll_create() {
   LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
   if (list == NULL)
     return NULL;
@@ -40,31 +40,38 @@ bool ll_create_node(void *data, Node **out) {
   return true;
 }
 
+// Free all Node of LinkedList and the LinkedList it self
 bool ll_free(LinkedList *list) {
   if (list == NULL)
     return false;
-  Node *tempNode;
+
+  Node *currentNode;
+  Node *nextNode;
+
   while (list->head != NULL) {
-    tempNode = list->head->next;
-    list->head = tempNode;
-    free(tempNode->data);
-    free(tempNode);
+    nextNode = currentNode->next;
+    free(currentNode->data);
+    free(currentNode);
+    currentNode = nextNode;
   }
+
   free(list);
   return true;
 }
 
+// Gives back the last element
+// then deletes it in O(n)
 bool ll_pop_tail(LinkedList *list, void **out) {
-  Node *tempNode;
+  Node *currentNode;
   Node *prevNode;
   if (list == NULL || list->tail == NULL)
     return false;
   *out = list->tail->data;
   free(list->tail);
-  tempNode = list->head;
-  while (tempNode->next != NULL) {
-    prevNode = tempNode;
-    tempNode = tempNode->next;
+  currentNode = list->head;
+  while (currentNode->next != NULL) {
+    prevNode = currentNode;
+    currentNode = currentNode->next;
   }
   list->tail = prevNode;
   return true;

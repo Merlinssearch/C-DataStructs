@@ -16,20 +16,22 @@ typedef struct LinkedList {
     size_t size;
 } LinkedList;
 
-LinkedList *ll_creat(void);
+LinkedList *ll_create(void);
+
 bool ll_create_node(void *data, Node **out);
+
+// Free all Node of LinkedList and the LinkedList itself
 bool ll_free(LinkedList *list);
 
 bool ll_pop_tail(LinkedList *list, void **out_data);
-bool ll_push_tail(void *data);
+bool ll_push_tail(LinkedList *list, void *data);
 
 bool ll_pop_head(LinkedList *list, void **out_data);
-bool ll_push_head(void *data);
+bool ll_push_head(LinkedList *list, void *data);
 
 // Insert at head: `ll_push_head()`
 // Insert at tail: `ll_push_tail()`
 // Insert after a node: `ll_insert_after()` after what ? index , node , i dont
-// know Remove from head: `ll_pop_head()` Remove from tail: `ll_pop_tail()`
-// Remove a specific node: `ll_remove_node()`
-// Get the Value by Index of the Pointer : ll_get_value_by_index
-// Get Index of Value : ll_get_index_by_value
+// know Remove a specific node: `ll_remove_node()` with index or value ? Get the
+// Value by Index of the Pointer : ll_get_value_by_index Get Index of Value :
+// ll_get_index_by_value
