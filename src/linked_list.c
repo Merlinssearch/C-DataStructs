@@ -63,20 +63,47 @@ bool ll_free(LinkedList *list) {
 // then deletes it in O(n)
 bool ll_pop_tail(LinkedList *list, void **out) {
   Node *currentNode;
-  Node *prevNode;
-  if (list == NULL || list->tail == NULL)
+
+  if (list == NULL || list->tail == NULL || list->head == NULL)
     return false;
+
   *out = list->tail->data;
-  free(list->tail);
+
+  if (list->head == list->tail) {
+    free(list->tail);
+    list->size = 0;
+    list->tail = NULL;
+    list->head = NULL;
+    return true;
+  }
   currentNode = list->head;
-  while (currentNode->next != NULL) {
-    prevNode = currentNode;
+  while (currentNode->next != list->tail) {
     currentNode = currentNode->next;
   }
-  list->tail = prevNode;
+  free(list->tail);
+  list->tail = currentNode;
+  list->tail->next = NULL;
+  list->size--;
   return true;
 }
 
-bool ll_push_tail(void *data) { return true; }
+bool ll_push_tail(LinkedList *list, void *data) {
+  if (list == NULL)
+    return false;
+  Node *newNode = NULL;
+  bool succeed = ll_create_node(data, &newNode);
+  if (!succeed)
+    return false;
+  if (list->head == NULL && list->tail == NULL) {
+    list->head = newNode;
+    list->tail = newNode;
+    return true;
+  }
+  list->tail->next = newNode;
+  list->tail = newNode;
+  list->tail->next = NULL;
+  list->size++;
+  return true;
+}
 bool ll_pop_head(LinkedList *list, void **out_data) { return true; }
 bool ll_push_head(void *data) { return true; }
