@@ -136,7 +136,28 @@ bool ll_push_head(LinkedList *list, void *data) {
   return true;
 }
 
-bool ll_insert_after(LinkedList *list, Node *node, void *data) { return true; }
+bool ll_insert_after(LinkedList *list, Node *node, void *data) {
+  if (list == NULL || node == NULL)
+    return false;
+  Node *newNode = NULL;
+  Node *tempNode = NULL;
+  bool succeed = ll_create_node(data, &newNode);
+  if (!succeed)
+    return false;
+  if (list->head == NULL && list->tail == NULL) {
+    list->head = newNode;
+    list->tail = newNode;
+    return true;
+  }
+  if (node == list->tail) {
+    list->tail = newNode;
+  }
+  tempNode = node->next;
+  node->next = newNode;
+  newNode->next = tempNode;
+  list->size++;
+  return true;
+}
 
 bool ll_remove_node(LinkedList *list, Node *node, void **out) { return true; }
 

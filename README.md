@@ -43,3 +43,6 @@ This project is a personal learning repository to explore **data structures in C
     └── test_tree.c
 ```
 
+
+## Finished
+-> linked_list 
