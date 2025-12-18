@@ -1,64 +1,127 @@
-Linked List - Key Points for C Implementation
 
-1. **Core Structure**
+# Generic Linked List Library in C
 
-* `Node`: contains `data` and pointer to `next` node.
-* `LinkedList`: contains `head`, `tail`, and optionally `size`.
-* Avoid ambiguous pointers like `current` inside the list structure.
+**Author:** Maxim Ott
+**License:** MIT
+**Year:** 2025
 
-2. **Memory Management**
+---
 
-* Always `malloc` nodes; check for `NULL` return.
-* Free nodes individually when deleting or freeing the list.
-* Keep `tail` and `head` pointers consistent after insertions/deletions.
+## Overview
 
-3. **Basic Operations**
+This is a simple **generic singly linked list** implementation in C.
+It supports storing arbitrary data via `void*` and provides standard operations such as push, pop, insert, remove, and access by index or value.
 
-* Create a Node : `ll_create_node()`
-* Creation: `ll_create()`
-* Destruction: `ll_free()`
-* Insert at head: `ll_push_front()`
-* Insert at tail: `ll_push()`
-* Insert after a node: `ll_insert_after()`
-* Remove from head: `ll_pop_front()`
-* Remove from tail: `ll_pop()`
-* Remove a specific node: `ll_remove_node()`
+The library is designed to be simple, safe, and modular, hiding internal functions where possible.
 
-4. **Search / Access**
+---
 
-* `ll_search()` returns first node matching data.
-* `ll_get_at()` accesses node by index.
-* `ll_index_of()` optional: returns first occurrence index.
+## Data Structures
 
-5. **Utility Functions**
+```c
+typedef struct Node {
+    void *data;       // Pointer to the stored data
+    struct Node *next; // Pointer to the next node in the list
+} Node;
 
-* `ll_is_empty()` checks if list is empty.
-* `ll_length()` returns size (O(1) if stored, O(n) otherwise).
-* `ll_print()` for debugging / example output.
+typedef struct LinkedList {
+    Node *head;       // First node in the list
+    Node *tail;       // Last node in the list
+    size_t size;      // Number of elements in the list
+} LinkedList;
+```
 
-6. **Optional Advanced Operations**
+* `head` points to the first element.
+* `tail` points to the last element.
+* `size` tracks the number of elements in the list.
 
-* `ll_reverse()` in-place reverse.
-* `ll_clone()` deep copy of list.
-* `ll_sort()` sorting of list elements.
+---
 
-7. **Best Practices**
+## Creation
 
-* Keep API clean: do not rely on internal state like `current`.
-* Always update `head`, `tail`, and `size` consistently.
-* Use modular approach: separate header (`.h`) and source (`.c`) files.
-* Include license headers for each file if making a library.
+```c
+LinkedList *ll_create(void);
+```
 
-8. **Learning Approach**
+* Creates a new empty linked list.
+* Returns `NULL` on allocation failure.
 
-* Start with core head/tail operations.
-* Add search and remove functions.
-* Extend with index-based and advanced operations after basics are stable.
-* Test each function thoroughly with small examples before combining.
+```c
+static bool ll_create_node(void *data, Node **out);
+```
 
-9. **C Language Notes**
+* Internal helper to create a new node.
+* Marks it `static` to hide it from the user.
 
-* Use `stdbool.h` for boolean operations.
-* Include proper `#include` headers (`stdio.h`, `stdlib.h`).
-* Use `size_t` for size/index counters.
-* Always handle `NULL` pointers gracefully.
+---
+
+## Memory Management
+
+```c
+bool ll_free(LinkedList *list);
+```
+
+* Frees all nodes and the list itself.
+* Also frees the `data` pointer stored in each node.
+* Returns `false` if `list` is `NULL`.
+* **Internal use** recommended to avoid accidental double frees.
+
+---
+
+## Push / Pop Operations
+
+```c
+bool ll_push_tail(LinkedList *list, void *data);
+bool ll_push_head(LinkedList *list, void *data);
+bool ll_pop_tail(LinkedList *list, void **out);
+bool ll_pop_head(LinkedList *list, void **out);
+```
+
+* `ll_push_tail` / `ll_push_head`: add an element at the **tail** or **head**.
+* `ll_pop_tail` / `ll_pop_head`: remove and return the element from **tail** or **head**.
+* Maintains `head`, `tail`, and `size` invariants.
+* `pop_tail` is O(n) because singly linked lists do not have backward pointers.
+
+---
+
+## Node Manipulation
+
+```c
+static bool ll_insert_after(LinkedList *list, Node *node, void *data);
+bool ll_remove_node(LinkedList *list, Node *node, void **out);
+```
+
+* `ll_insert_after`: inserts a node **after a given node** (internal use).
+* `ll_remove_node`: removes a specific node and optionally returns its data.
+* These functions maintain list integrity and update `head`, `tail`, and `size` accordingly.
+
+---
+
+## Access Functions
+
+```c
+bool ll_get_value_by_index(LinkedList *list, size_t index, void **out);
+bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out);
+```
+
+* `ll_get_value_by_index`: retrieves data by zero-based index.
+* `ll_get_index_by_value`: finds the index of a node containing a specific data pointer.
+* Only compares the pointer value, not the content it points to.
+
+---
+
+## Notes
+
+* All functions check for `NULL` list pointers to avoid crashes.
+* Internal helper functions are `static` to prevent misuse.
+* Generic `void*` storage requires the user to manage memory of stored data carefully.
+* Push/pop operations correctly update `head`, `tail`, and `size` to keep the list consistent.
+
+---
+
+This library is intended as a **simple, generic, and safe foundation** for singly linked list operations in C.
+Its my first library so feel free to give me some tipps xD
+Maybe i will make a a dir with examples with the function for newbies like me.
+Because example > docs 
+Nobody understands docs or maybe i am just dumb as fuck. 
+

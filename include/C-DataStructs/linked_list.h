@@ -18,10 +18,13 @@ typedef struct LinkedList {
 
 LinkedList *ll_create(void);
 
-bool ll_create_node(void *data, Node **out);
+// making it static hides it for the User
+
+static bool ll_create_node(void *data, Node **out);
 
 /**
  * @brief Frees all nodes of a LinkedList and the LinkedList itself.
+ * (for internal use)
  *
  * @param list Pointer to the LinkedList to free. Can be NULL.
  * @return true if the list was successfully freed, false if the list was NULL.
@@ -74,10 +77,65 @@ bool ll_pop_head(LinkedList *list, void **out);
  * @note If the list is empty, both head and tail are set to the new node.
  */
 
-bool ll_push_head(LinkedList *list, void **out);
+bool ll_push_head(LinkedList *list, void *data);
 
-// Insert at head: `ll_push_head()`
-// Insert after a node: `ll_insert_after()` after what ? index , node , i dont
-// know Remove a specific node: `ll_remove_node()` with index or value ? Get the
-// Value by Index of the Pointer : ll_get_value_by_index Get Index of Value :
-// ll_get_index_by_value
+/**
+ * @brief Inserts a new element at the beginning (head) of the list.
+ *
+ * @param list Pointer to the LinkedList.
+ * @param data Pointer to the data to store in the new node.
+ * @return true if the node was successfully created and added, false otherwise.
+ *
+ * @note If the list is empty, both head and tail are set to the new node.
+ */
+bool ll_push_head(LinkedList *list, void *data);
+
+/**
+ * @brief Inserts a new element after a given node in the list.
+ * (for internal use)
+ *
+ * @param list Pointer to the LinkedList.
+ * @param node Pointer to the node after which the new node will be inserted.
+ *             Must be non-NULL and belong to the list.
+ * @param data Pointer to the data to store in the new node.
+ * @return true if the node was successfully created and added, false otherwise.
+ *
+ * @note If `node` is the tail, this function behaves like `ll_push_tail()`.
+ */
+static bool ll_insert_after(LinkedList *list, Node *node, void *data);
+
+/**
+ * @brief Removes a specific node from the list.
+ *
+ * @param list Pointer to the LinkedList.
+ * @param node Pointer to the node to remove. Must belong to the list.
+ * @param out Optional pointer to store the node's data before freeing. Can be
+ * NULL.
+ * @return true if the node was removed, false if `node` was NULL or not in the
+ * list.
+ */
+bool ll_remove_node(LinkedList *list, Node *node, void **out);
+
+/**
+ * @brief Retrieves the data of a node by its index.
+ *
+ * @param list Pointer to the LinkedList.
+ * @param index Zero-based index of the node.
+ * @param out Pointer to store the data of the node at the given index.
+ * @return true if the index was valid, false otherwise.
+ */
+bool ll_get_value_by_index(LinkedList *list, size_t index, void **out);
+
+/**
+ * @brief Finds the index of the first node containing the given data pointer.
+ *
+ * @param list Pointer to the LinkedList.
+ * @param data Pointer to the data to search for.
+ * @param out Pointer to store the zero-based index of the node. Ignored if not
+ * found.
+ * @return true if a node with matching data was found, false otherwise.
+ *
+ * @note Compares data pointers, not the content they point to.
+ */
+
+bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out);
