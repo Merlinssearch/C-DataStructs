@@ -105,5 +105,45 @@ bool ll_push_tail(LinkedList *list, void *data) {
   list->size++;
   return true;
 }
-bool ll_pop_head(LinkedList *list, void **out_data) { return true; }
-bool ll_push_head(void *data) { return true; }
+bool ll_pop_head(LinkedList *list, void **out) {
+  if (list == NULL || list->head == NULL)
+    return false;
+  *out = list->head->data;
+  Node *oldHead = list->head;
+  list->head = list->head->next;
+  if (list->head == NULL) {
+    list->tail = NULL;
+  }
+  free(oldHead);
+  list->size--;
+  return true;
+}
+bool ll_push_head(LinkedList *list, void *data) {
+  if (list == NULL)
+    return false;
+  Node *newNode = NULL;
+  bool succeed = ll_create_node(data, &newNode);
+  if (!succeed)
+    return false;
+  if (list->head == NULL && list->tail == NULL) {
+    list->head = newNode;
+    list->tail = newNode;
+  } else {
+    newNode->next = list->head;
+    list->head = newNode;
+  }
+  list->size++;
+  return true;
+}
+
+bool ll_insert_after(LinkedList *list, Node *node, void *data) { return true; }
+
+bool ll_remove_node(LinkedList *list, Node *node, void **out) { return true; }
+
+bool ll_get_value_by_index(LinkedList *list, size_t index, void **out) {
+  return true;
+}
+
+bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out) {
+  return true;
+}
