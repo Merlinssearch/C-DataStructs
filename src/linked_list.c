@@ -40,15 +40,34 @@ bool ll_create_node(void *data, Node **out) {
   return true;
 }
 
+bool ll_insert_after(LinkedList *list, Node *node, void *data) {
+  if (list == NULL || node == NULL)
+    return false;
+
+  Node *newNode = NULL;
+
+  bool succeed = ll_create_node(data, &newNode);
+  if (!succeed)
+    return false;
+
+  newNode->next = node->next;
+  node->next = newNode;
+
+  if (node == list->tail) {
+    list->tail = newNode;
+  }
+  list->size++;
+  return true;
+}
 // Free all Node of LinkedList and the LinkedList it self
 bool ll_free(LinkedList *list) {
   if (list == NULL)
     return false;
 
-  Node *currentNode;
+  Node *currentNode = list->head;
   Node *nextNode;
 
-  while (list->head != NULL) {
+  while (currentNode != NULL) {
     nextNode = currentNode->next;
     free(currentNode->data);
     free(currentNode);
@@ -97,6 +116,7 @@ bool ll_push_tail(LinkedList *list, void *data) {
   if (list->head == NULL && list->tail == NULL) {
     list->head = newNode;
     list->tail = newNode;
+    list->size++;
     return true;
   }
   list->tail->next = newNode;
@@ -105,6 +125,7 @@ bool ll_push_tail(LinkedList *list, void *data) {
   list->size++;
   return true;
 }
+
 bool ll_pop_head(LinkedList *list, void **out) {
   if (list == NULL || list->head == NULL)
     return false;
@@ -118,6 +139,7 @@ bool ll_pop_head(LinkedList *list, void **out) {
   list->size--;
   return true;
 }
+
 bool ll_push_head(LinkedList *list, void *data) {
   if (list == NULL)
     return false;
@@ -135,36 +157,44 @@ bool ll_push_head(LinkedList *list, void *data) {
   list->size++;
   return true;
 }
-
-bool ll_insert_after(LinkedList *list, Node *node, void *data) {
-  if (list == NULL || node == NULL)
-    return false;
-  Node *newNode = NULL;
-  Node *tempNode = NULL;
-  bool succeed = ll_create_node(data, &newNode);
-  if (!succeed)
-    return false;
-  if (list->head == NULL && list->tail == NULL) {
-    list->head = newNode;
-    list->tail = newNode;
-    return true;
-  }
-  if (node == list->tail) {
-    list->tail = newNode;
-  }
-  tempNode = node->next;
-  node->next = newNode;
-  newNode->next = tempNode;
-  list->size++;
-  return true;
-}
-
-bool ll_remove_node(LinkedList *list, Node *node, void **out) { return true; }
+// do i need it if all other functon just delete the node xD
+// yea it was dump next time write core functon first to reuse it
+// bool ll_remove_node(LinkedList *list, Node *node, void **out) { return true;
+// }
 
 bool ll_get_value_by_index(LinkedList *list, size_t index, void **out) {
+  if (list == NULL)
+    return false;
+  if (index >= list->size)
+    return false;
+
+  Node *currentNode = list->head;
+
+  for (size_t i = 0; i < index; i++) {
+    currentNode = currentNode->next;
+  }
+  *out = currentNode->data;
   return true;
 }
 
-bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out) {
-  return true;
+bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out,
+                           bool (*cmp)(const void *, const void *)) {
+  if (!list || !out || !cmp || list->head == NULL) // Add head check
+    return false;
+
+  Node *node = list->head;
+  size_t i = 0;
+
+  while (node != NULL) { // Safe traversal
+    if (cmp(node->data, data)) {
+      *out = i;
+      return true;
+    }
+    node = node->next;
+    i++;
+  }
+
+  return false;
 }
+
+// why is C so fucking hard

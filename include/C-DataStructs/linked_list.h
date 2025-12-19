@@ -15,16 +15,23 @@ typedef struct LinkedList {
     Node *tail;
     size_t size;
 } LinkedList;
-
+/**
+ * @brief Creates a LinkedList and set :
+ *   Node *head = NULL;
+ *   Node *tail = NULL;
+ *   size_t size = 0;
+ *   Important : You Pass Owner ships from your Data to LinkedList
+ *   This is a single pointer LinkedList
+ **/
 LinkedList *ll_create(void);
 
 // making it static hides it for the User
 
-static bool ll_create_node(void *data, Node **out);
+bool ll_create_node(void *data, Node **out);
 
 /**
  * @brief Frees all nodes of a LinkedList and the LinkedList itself.
- * (for internal use)
+ *
  *
  * @param list Pointer to the LinkedList to free. Can be NULL.
  * @return true if the list was successfully freed, false if the list was NULL.
@@ -47,7 +54,8 @@ bool ll_pop_tail(LinkedList *list, void **out);
 
 /**
  * @brief Appends a new element to the end (tail) of the list.
- *
+ * @ownership : ll_free() --> call this function to free all memory
+ * NEVER call if u free Memory
  * @param list Pointer to the LinkedList.
  * @param data Pointer to the data to store in the new node.
  * @return true if the node was successfully created and added, false otherwise.
@@ -58,7 +66,6 @@ bool ll_push_tail(LinkedList *list, void *data);
 
 /**
  * @brief Removes the first element (head) from the list and returns its data.
- *
  * @param list Pointer to the LinkedList.
  * @param out Pointer to a void* that will receive the data of the removed node.
  * @return true if an element was removed, false if the list was empty or NULL.
@@ -69,7 +76,8 @@ bool ll_pop_head(LinkedList *list, void **out);
 
 /**
  * @brief Inserts a new element at the beginning (head) of the list.
- *
+ * @ownership : ll_free() --> call this function to free all memory
+ * NEVER call if u free Memory
  * @param list Pointer to the LinkedList.
  * @param data Pointer to the data to store in the new node.
  * @return true if the node was successfully created and added, false otherwise.
@@ -102,7 +110,7 @@ bool ll_push_head(LinkedList *list, void *data);
  *
  * @note If `node` is the tail, this function behaves like `ll_push_tail()`.
  */
-static bool ll_insert_after(LinkedList *list, Node *node, void *data);
+bool ll_insert_after(LinkedList *list, Node *node, void *data);
 
 /**
  * @brief Removes a specific node from the list.
@@ -114,7 +122,7 @@ static bool ll_insert_after(LinkedList *list, Node *node, void *data);
  * @return true if the node was removed, false if `node` was NULL or not in the
  * list.
  */
-bool ll_remove_node(LinkedList *list, Node *node, void **out);
+// bool ll_remove_node(LinkedList *list, Node *node, void **out);
 
 /**
  * @brief Retrieves the data of a node by its index.
