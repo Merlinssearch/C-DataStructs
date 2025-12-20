@@ -17,17 +17,12 @@ This project is a personal learning repository to explore **data structures in C
 │   ├── example_stack.c
 │   └── example_tree.c
 ├── include
-│   └── c_ds_lib
-│       ├── graph.h
-│       ├── hashmap.h
-│       ├── linked_list.h
-│       ├── queue_float.h
-│       ├── queue_int.h
-│       ├── stack_float.h
-│       ├── stack_int.h
-│       └── tree.h
+│   └── C-DataStructs
 ├── LICENSE
 ├── Makefile
+├── read
+│   ├── linkedlist.md
+│   └── someRules.md
 ├── README.md
 ├── src
 │   ├── graph.c
@@ -38,9 +33,11 @@ This project is a personal learning repository to explore **data structures in C
 │   ├── stack_float.c
 │   ├── stack_int.c
 │   └── tree.c
+├── target
+│   └── target.md
+├── test_linked_list
 └── tests
-    ├── test_stack.c
-    └── test_tree.c
+    └── test_linked_list.c
 ```
 
 
