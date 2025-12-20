@@ -18,6 +18,12 @@ This project is a personal learning repository to explore **data structures in C
 │   └── example_tree.c
 ├── include
 │   └── C-DataStructs
+│       ├── graph.h
+│       ├── hashmap.h
+│       ├── linked_list.h
+│       ├── queue.h
+│       ├── stack.h
+│       └── tree.h
 ├── LICENSE
 ├── Makefile
 ├── read
@@ -28,10 +34,8 @@ This project is a personal learning repository to explore **data structures in C
 │   ├── graph.c
 │   ├── hashmap.c
 │   ├── linked_list.c
-│   ├── queue_float.c
-│   ├── queue_int.c
-│   ├── stack_float.c
-│   ├── stack_int.c
+│   ├── queue.c
+│   ├── stack.c
 │   └── tree.c
 ├── target
 │   └── target.md
