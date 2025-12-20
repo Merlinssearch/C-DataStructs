@@ -20,8 +20,9 @@ typedef struct LinkedList {
  *   Node *head = NULL;
  *   Node *tail = NULL;
  *   size_t size = 0;
- *   Important : You Pass Owner ships from your Data to LinkedList
  *   This is a single pointer LinkedList
+ *   U own the Data
+ *   LinkedList own the pointer
  **/
 LinkedList *ll_create(void);
 
@@ -66,6 +67,8 @@ bool ll_push_tail(LinkedList *list, void *data);
 
 /**
  * @brief Removes the first element (head) from the list and returns its data.
+ * @ownership : ll_free() --> call this function to free all memory
+ * NEVER call if u free Memory
  * @param list Pointer to the LinkedList.
  * @param out Pointer to a void* that will receive the data of the removed node.
  * @return true if an element was removed, false if the list was empty or NULL.
@@ -76,19 +79,6 @@ bool ll_pop_head(LinkedList *list, void **out);
 
 /**
  * @brief Inserts a new element at the beginning (head) of the list.
- * @ownership : ll_free() --> call this function to free all memory
- * NEVER call if u free Memory
- * @param list Pointer to the LinkedList.
- * @param data Pointer to the data to store in the new node.
- * @return true if the node was successfully created and added, false otherwise.
- *
- * @note If the list is empty, both head and tail are set to the new node.
- */
-
-bool ll_push_head(LinkedList *list, void *data);
-
-/**
- * @brief Inserts a new element at the beginning (head) of the list.
  *
  * @param list Pointer to the LinkedList.
  * @param data Pointer to the data to store in the new node.
@@ -96,6 +86,7 @@ bool ll_push_head(LinkedList *list, void *data);
  *
  * @note If the list is empty, both head and tail are set to the new node.
  */
+
 bool ll_push_head(LinkedList *list, void *data);
 
 /**

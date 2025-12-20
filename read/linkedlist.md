@@ -28,7 +28,7 @@ bool ll_free(LinkedList *list);           // O(n)
 bool ll_push_head(LinkedList *list, void *data);  // O(1)
 bool ll_push_tail(LinkedList *list, void *data);  // O(1)
 bool ll_pop_head(LinkedList *list, void **out);   // O(1)
-bool ll_pop_tail(LinkedList *list, void **out);   // O(n)
+bool ll_pop_tail(LinkedList *list, void **out);   // O(n) yea fuck my life 
 ```
 
 ### Access
@@ -37,12 +37,15 @@ bool ll_get_value_by_index(LinkedList *list, size_t index, void **out);
 bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out);
 ```
 
-## Memory Management
+## Ownership Rules
 
-- **Push**: List takes ownership of data
-- **ll_free()**: Frees all nodes + data
-- **pop**: Caller takes ownership of data
+**Simple Rule:** You own your `malloc()` data forever. LinkedList only owns/manages Node structures.
 
+- You `malloc()` → **You own data**
+- `ll_push_*()` → **List owns Node** (points to your data)  
+- `ll_free()` → **List frees all Nodes only**
+- `ll_pop_*()` → **You get data pointer back** (was always yours)
+- its a dynamic typ list so i couldn solve it in a another way (i have a plan on how but i am to lazy right now) 
 ## Quick Start
 
 ```c

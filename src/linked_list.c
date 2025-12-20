@@ -39,7 +39,9 @@ bool ll_create_node(void *data, Node **out) {
   *out = newNode;
   return true;
 }
-
+// do i really need this ??
+// Node to my self : FIRST CORE FUCTIONs for reuse
+// i hope this shit is not useless
 bool ll_insert_after(LinkedList *list, Node *node, void *data) {
   if (list == NULL || node == NULL)
     return false;
@@ -69,7 +71,6 @@ bool ll_free(LinkedList *list) {
 
   while (currentNode != NULL) {
     nextNode = currentNode->next;
-    free(currentNode->data);
     free(currentNode);
     currentNode = nextNode;
   }
@@ -184,8 +185,7 @@ bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out,
 
   Node *node = list->head;
   size_t i = 0;
-
-  while (node != NULL) { // Safe traversal
+  while (node != NULL) {
     if (cmp(node->data, data)) {
       *out = i;
       return true;
@@ -197,4 +197,5 @@ bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out,
   return false;
 }
 
+bool ll_delete_by_index(LinkedList *list, size_t index) { return }
 // why is C so fucking hard
