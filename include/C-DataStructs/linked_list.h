@@ -1,5 +1,11 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2025 Maxim Ott
+
+// Note to me : bool function are maybe over the top i mean malloc doesnt
+// fail so often ??? wee will see or we will C xD
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -138,3 +144,38 @@ bool ll_get_value_by_index(LinkedList *list, size_t index, void **out);
  */
 
 bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out);
+
+/**
+ * @brief Retrieves the data from the first node without removing it.
+ *
+ * @param list Pointer to the LinkedList.
+ * @param out Pointer to store the data pointer from the head node.
+ * @return true if the head node exists and data was retrieved, false otherwise.
+ *
+ * @note Does not modify the list. Returns the data pointer, not a copy.
+ * @note Returns false if the list is NULL or empty.
+ */
+bool ll_peek_head(LinkedList *list, void **out);
+
+/**
+ * @brief Retrieves the data from the last node without removing it.
+ *
+ * @param list Pointer to the LinkedList.
+ * @param out Pointer to store the data pointer from the tail node.
+ * @return true if the tail node exists and data was retrieved, false otherwise.
+ *
+ * @note Does not modify the list. Returns the data pointer, not a copy.
+ * @note Returns false if the list is NULL or empty.
+ */
+bool ll_peek_tail(LinkedList *list, void **out);
+
+/**
+ * @ Checks if List is empty
+ *
+ * @param Pointer to the LinkedList.
+ * @return true if list is empty
+ */
+
+bool ll_is_empty(LinkedList *list);
+
+#endif // !DEBUG

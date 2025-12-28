@@ -84,16 +84,16 @@ bool ll_free(LinkedList *list) {
 bool ll_pop_tail(LinkedList *list, void **out) {
   Node *currentNode;
 
-  if (list == NULL || list->tail == NULL || list->head == NULL)
+  if (list == NULL || list->tail == NULL || list->head == NULL || out == NULL)
     return false;
 
   *out = list->tail->data;
 
   if (list->head == list->tail) {
     free(list->tail);
-    list->size = 0;
     list->tail = NULL;
     list->head = NULL;
+    list->size--;
     return true;
   }
   currentNode = list->head;
@@ -128,7 +128,7 @@ bool ll_push_tail(LinkedList *list, void *data) {
 }
 
 bool ll_pop_head(LinkedList *list, void **out) {
-  if (list == NULL || list->head == NULL)
+  if (list == NULL || list->head == NULL || out == NULL)
     return false;
   *out = list->head->data;
   Node *oldHead = list->head;
@@ -164,7 +164,7 @@ bool ll_push_head(LinkedList *list, void *data) {
 // }
 
 bool ll_get_value_by_index(LinkedList *list, size_t index, void **out) {
-  if (list == NULL)
+  if (list == NULL || out == NULL)
     return false;
   if (index >= list->size)
     return false;
@@ -197,5 +197,52 @@ bool ll_get_index_by_value(LinkedList *list, void *data, size_t *out,
   return false;
 }
 
-bool ll_delete_by_index(LinkedList *list, size_t index) { return }
+// Dont forget for Alloctracker of Deletion
+
+bool ll_delete_by_index(LinkedList *list, size_t index) {
+  if (list == NULL || list->size <= index)
+    return false;
+
+  Node *currentNode = list->head;
+  // if we delete Head
+  if (index == 0) {
+    list->head = list->head->next;
+    if (list->head == NULL) {
+      list->tail = NULL;
+    }
+    free(currentNode);
+    list->size--;
+    return true;
+  }
+  for (size_t i = 0; i < index - 1; i++) {
+    currentNode = currentNode->next;
+  }
+  Node *deleteNode = currentNode->next;
+  currentNode->next = deleteNode->next;
+  if (deleteNode == list->tail) {
+    list->tail = currentNode;
+  }
+  free(deleteNode);
+  list->size--;
+  return true;
+}
+
+bool ll_is_empty(LinkedList *list) {
+  return (list != NULL && list->head == NULL);
+}
+
+bool ll_peek_head(LinkedList *list, void **out) {
+  if (list == NULL || list->head == NULL)
+    return false;
+  *out = list->head->data;
+  return true;
+}
+
+bool ll_peek_tail(LinkedList *list, void **out) {
+  if (list == NULL || list->tail == NULL)
+    return false;
+  *out = list->tail->data;
+  return true;
+}
+
 // why is C so fucking hard
