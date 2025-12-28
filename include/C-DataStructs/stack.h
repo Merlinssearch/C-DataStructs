@@ -19,6 +19,7 @@ typedef struct Stack {
 //**//
 
 bool stack_push(Stack *stack, void *data);
+
 //**
 // @brief
 // @param list Pointer to the LinkedList.
@@ -26,15 +27,7 @@ bool stack_push(Stack *stack, void *data);
 // @return
 //**//
 
-bool stack_pop(Stack *stack);
-//**
-// @brief
-// @param list Pointer to the LinkedList.
-// @param data Pointer to the data to on the stack.
-// @return
-//**//
-
-bool stack_pop_peak(Stack *stack, void **out);
+bool stack_pop(Stack *stack, void **out);
 //**
 // @brief
 // @param list Pointer to the LinkedList.
