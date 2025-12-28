@@ -1,11 +1,16 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2025 Maxim Ott
 
-#ifndef STACK_H
-#define STACK_H
+#ifndef C_DATASTRUCTS_STACK_H
+#define C_DATASTRUCTS_STACK_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "linked_list.h"
-#include <cstddef>
+#include <stdbool.h>
+#include <stddef.h>
 
 typedef struct Stack {
     LinkedList *list;
@@ -44,15 +49,15 @@ bool peek(Stack *stack, void **out);
 // @return
 //**//
 
-bool isEmpty(Stack *stack);
+bool is_empty(Stack *stack);
 
+#ifdef __cplusplus
+}
 #endif
+
+#endif // C_DATASTRUCTS_STACK_H
 
 /**
 Todos :
-    Push: Adds a new element on the stack.
-    Pop: Removes and returns the top element from the stack.
-    Peek: Returns the top (last) element on the stack.
-    isEmpty: Checks if the stack is empty.
-    Size: Finds the number of elements in the stack.
+
 **/

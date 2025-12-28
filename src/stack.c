@@ -22,4 +22,4 @@ bool peek(Stack *stack, void **out) {
   return ll_peek_head(stack->list, out);
 }
 
-bool isEmpty(Stack *stack) { return ll_is_empty(stack->list); }
+bool is_empty(Stack *stack) { return ll_is_empty(stack->list); }

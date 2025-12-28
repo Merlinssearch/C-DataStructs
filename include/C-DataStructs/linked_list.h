@@ -3,13 +3,15 @@
 
 // Note to me : bool function are maybe over the top i mean malloc doesnt
 // fail so often ??? wee will see or we will C xD
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef C_DATASTRUCTS_LINKED_LIST_H
+#define C_DATASTRUCTS_LINKED_LIST_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 typedef struct Node {
     void *data;
@@ -178,4 +180,8 @@ bool ll_peek_tail(LinkedList *list, void **out);
 
 bool ll_is_empty(LinkedList *list);
 
-#endif // !DEBUG
+#ifdef __cplusplus
+}
+#endif
+
+#endif // C_DATASTRUCTS_LINKED_LIST_H
