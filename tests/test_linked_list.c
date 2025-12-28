@@ -6,6 +6,5 @@
 
 int main() {
   // Create list
-  LinkedList *list = ll_create();
   return 0;
 }

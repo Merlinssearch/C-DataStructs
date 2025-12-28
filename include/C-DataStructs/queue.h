@@ -11,44 +11,19 @@ extern "C" {
 #include "linked_list.h"
 #include <cstddef>
 
-typedef struct Stack {
+typedef struct Queue {
     LinkedList *list;
-} Stack;
+} Queue;
 
-//**
-// @brief
-// @param list Pointer to the LinkedList.
-// @param data Pointer to the data to on the stack.
-// @return
-//**//
+typedef struct Queue Queue;
 
-bool stack_push(Stack *stack, void *data);
-
-//**
-// @brief
-// @param list Pointer to the LinkedList.
-// @param data Pointer to the data to on the stack.
-// @return
-//**//
-
-bool stack_pop(Stack *stack, void **out);
-//**
-// @brief
-// @param list Pointer to the LinkedList.
-// @param data Pointer to the data to on the stack.
-// @return
-//**//
-
-bool peek(Stack *stack, void **out);
-
-//**
-// @brief
-// @param list Pointer to the LinkedList.
-// @param data Pointer to the data to on the stack.
-// @return
-//**//
-
-bool isEmpty(Stack *stack);
+Queue *queue_create(void);
+bool queue_destroy(Queue *queue);
+bool queue_enqueue(Queue *queue, void *data);
+bool queue_dequeue(Queue *queue, void **out);
+bool queue_peek(Queue *queue, void **out);
+bool queue_is_empty(Queue *queue);
+size_t queue_size(Queue *queue);
 
 #ifdef __cplusplus
 }
@@ -58,9 +33,5 @@ bool isEmpty(Stack *stack);
 
 /**
 Todos :
-    Push: Adds a new element on the stack.
-    Pop: Removes and returns the top element from the stack.
-    Peek: Returns the top (last) element on the stack.
-    isEmpty: Checks if the stack is empty.
-    Size: Finds the number of elements in the stack.
+
 **/
