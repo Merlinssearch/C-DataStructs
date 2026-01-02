@@ -2,6 +2,7 @@
 Ownership is hard so this should solve the problem . 
 I have to write it anyway in every programm i use this libary as a helper 
 so just implement it in the Linkelist or the other C-DataStructs
+PS : i will write an extra lib for this type of stuff. 
 ## Core Concept
 
 ```c

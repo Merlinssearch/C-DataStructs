@@ -1,16 +1,19 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2025 Maxim Ott
 
-#include <stddef.h>
-
+#include <stdlib.h>
 typedef struct TreeNode {
     void *data;
     struct TreeNode *left;
     struct TreeNode *right;
 } TreeNode;
 
-typedef struct BinaryTree {
+typedef struct BinTree {
     TreeNode *root;
-    size_t number_nodes;
-    size_t tree_hight;
-} BinaryTree;
+} BinTree;
+
+BinTree *btree_create() {
+  BinTree *binTree = (BinTree *)malloc(sizeof(BinTree));
+  binTree->root = NULL;
+  return binTree;
+}
