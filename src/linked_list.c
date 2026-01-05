@@ -40,7 +40,7 @@ bool ll_create_node(void *data, Node **out) {
   return true;
 }
 // do i really need this ??
-// Node to my self : FIRST CORE FUCTIONs for reuse
+// Note to my self : FIRST CORE FUCTIONs for reuse
 // i hope this shit is not useless
 bool ll_insert_after(LinkedList *list, Node *node, void *data) {
   if (list == NULL || node == NULL)

@@ -107,7 +107,7 @@ while (ll_pop_head(list, &data)) {
 ll_free(list);
 ```
 
-**Why?** It's generic - could be malloc'd, stack, or literal. You decide lifetime.
+**Why?** It's generic could be malloc'd, stack, or literal. You decide lifetime.
 But i will add an AllocTracker so u can just call the function at the end of the Code and it will free
 everythink <3 
 
@@ -206,10 +206,10 @@ make clean     # Clean up
 
 ## TODO
 
-- [ ] Write tests (maybe in Python because C tests are pain)
-- [ ] Add `ll_reverse()` and `ll_sort()`
-- [ ] Optional free callback for auto-cleanup
-- [ ] AllocTracker integration
+- [-] Write tests (maybe in Python because C tests are pain)
+- [-] Add `ll_reverse()` and `ll_sort()`
+- [-] Optional free callback for auto-cleanup
+- [-] AllocTracker integration
 
 ---
 
